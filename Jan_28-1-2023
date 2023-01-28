@@ -1,4 +1,4 @@
-Binary Tree Level Order Traversal
+1)Binary Tree Level Order Traversal
 
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -24,5 +24,129 @@ class Solution {
         }
         return res;
         
+    }
+}
+
+
+2)Search in a binary Search Tree
+
+class Solution {
+    public TreeNode searchBST(TreeNode root, int val) {
+        if(root==null)
+            return null;
+        TreeNode curr=root;
+        while(curr!=null){
+            if(curr.val==val)
+                return curr;
+            else if(curr.val>val)
+                curr=curr.left;
+            else
+                curr=curr.right;
+        }
+        return null;
+        
+    }
+}
+
+
+
+3)Average of levels in binary tree
+
+
+class Solution {
+    public List<Double> averageOfLevels(TreeNode root) {
+        Queue<TreeNode> q=new LinkedList<>();
+        List<Double> l=new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int size=q.size();
+            double sum=0;
+            for(int i=0;i<size;i++){
+                TreeNode curr=q.poll();
+                sum+=curr.val;
+                if(curr.left!=null){
+                    q.add(curr.left);
+                }
+                if(curr.right!=null){
+                    q.add(curr.right);
+                }
+            }
+            double d=sum/size;
+            l.add(d);
+
+        }
+        return l;
+        
+    }
+}
+
+
+4)Insert into binary search tree
+
+
+class Solution {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        TreeNode newnode=new TreeNode(val);
+        TreeNode curr=root;
+        TreeNode parent=root;
+        if(root==null){
+            root=newnode;
+            return root;
+        }
+        while(curr!=null){
+            parent=curr;
+            if(curr.val>val){
+                curr=curr.left;
+            }
+            else
+                curr=curr.right;
+        }
+        if(parent.val>val)
+            parent.left=newnode;
+        else
+            parent.right=newnode;
+        return root;
+        
+        
+    }
+}
+
+
+5)Find mode in a binary search tree
+
+
+class Solution {
+    public int[] findMode(TreeNode root) {
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        ArrayList<Integer> l=new ArrayList<>();
+        inorder(root,l);
+        for(int i:l)
+        {
+            hm.put(i,hm.getOrDefault(i,0)+1);
+        }
+        //int b=maximum(hm);
+        int b = (Collections.max(hm.values()));
+        ArrayList<Integer> res=new ArrayList<>();
+        for(int x:hm.keySet()){
+            if(b==hm.get(x)){
+                res.add(x);
+            }
+        }
+        int[] arr=new int[res.size()];
+        int j=0;
+        for(int i:res){
+            arr[j]=i;
+            j++;
+        }
+        return arr;
+
+        
+    }
+    public void inorder(TreeNode t,ArrayList l){
+        if(t!=null){
+            inorder(t.left,l);
+            l.add(t.val);
+            inorder(t.right,l);
+        }
     }
 }
