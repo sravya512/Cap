@@ -1,0 +1,118 @@
+Symmetric tree
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return inorder(root.left,root.right);
+        
+    }
+    public boolean inorder(TreeNode t,TreeNode r){
+        if(t==null && r==null){
+            return true;
+        }
+        if((t!=null && r==null) || (t==null && r!=null))
+            return false;
+        if(t.val!=r.val)
+            return false;
+        return inorder(t.left,r.right) && inorder(t.right,r.left);
+
+    }
+}
+
+
+Same tree
+
+
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        return same(p,q);
+        
+    }
+    public boolean same(TreeNode p,TreeNode q){
+        if(p==null && q==null)
+            return true;
+        if((p!=null && q==null) || (p==null && q!=null)){
+            return false;
+        }
+        if(p.val!=q.val)
+            return false;
+        return same(p.left,q.left) && same(p.right,q.right);
+    }
+}
+
+
+Binary tree zigzag level order traversal
+
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res=new LinkedList<>();
+        Queue<TreeNode> q=new LinkedList<>();
+        if(root==null)
+            return res;
+        q.add(root);
+        int count=0;
+        while(!q.isEmpty()){
+            count+=1;
+            List<Integer> l=new LinkedList<>();
+            int size=q.size();
+            for(int i=0;i<size;i++){
+                TreeNode curr=q.poll();
+                l.add(curr.val);
+                if(curr.left!=null){
+                    q.add(curr.left);
+                }
+                if(curr.right!=null){
+                    q.add(curr.right);
+                }
+            }
+            if(count%2!=0){
+                res.add(l);
+            }
+            else{
+                Collections.reverse(l);
+                res.add(l);
+            }  
+        }
+        return res;
+        
+    }
+}
+
+
+
+Max depth of binary tree
+
+
+class Solution {
+    public int maxDepth(TreeNode root) {
+        int a=maxi(root);
+        return a;
+        
+    }
+    public int maxi(TreeNode root){
+        if(root==null)
+            return 0;
+        return Math.max(maxi(root.left),maxi(root.right))+1;
+    }
+}
+
+
+min depth of binary tree
+
+class Solution {
+    public int minDepth(TreeNode root) {
+        int a=mini(root);
+        return a;
+
+        
+    }
+    public int mini(TreeNode root){
+        if(root==null)
+            return 0;
+        int a=mini(root.left);
+        int b=mini(root.right);
+        if(a==0 || b==0)
+            return Math.max(a,b)+1;
+        return Math.min(a,b)+1;
+    }
+}
