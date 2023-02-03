@@ -1,0 +1,76 @@
+Univalued binary tree
+
+class Solution {
+    public boolean isUnivalTree(TreeNode root) {
+        return traversal(root);
+        
+    }
+    public boolean traversal(TreeNode x){
+        if(x==null)
+            return true;
+        if(x.left!=null){
+            if(x.val!=x.left.val)
+                return false;
+        }
+        if(x.right!=null){
+            if(x.val!=x.right.val)
+                return false;
+        }
+        return traversal(x.left) && traversal(x.right);
+    }
+}
+
+Evaluate boolean binary tree
+
+
+class Solution {
+    public boolean evaluateTree(TreeNode root) {
+        return evaluate(root);
+
+        
+    }
+    public boolean evaluate(TreeNode root){
+        if(root==null)
+            return true;
+        boolean x=evaluate(root.left);
+        boolean y=evaluate(root.right);
+        if(root.left==null && root.right==null){
+            if(root.val==1)
+                return true;
+            else
+                return false;
+        }
+        if(root.val==2)
+            return x || y;
+        return x && y;
+        
+        
+    }
+}
+
+
+Sm root to leaf numbers
+
+class Solution {
+    int sum=0;
+    public int sumNumbers(TreeNode root) {
+        String s="";
+        Sum(root,s);
+        return sum;
+        
+    }
+    public void Sum(TreeNode t,String s){
+        if(t==null)
+            return;
+        s+=Integer.toString(t.val);
+        if(t.left==null && t.right==null){
+            sum+=Integer.parseInt(s);
+            System.out.println(sum);
+        }
+        Sum(t.left,s);
+        Sum(t.right,s);
+
+    }
+}
+
+
