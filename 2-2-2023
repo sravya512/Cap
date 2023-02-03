@@ -1,0 +1,82 @@
+Validate BST 
+
+
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return inorder(root,Long.MIN_VALUE,Long.MAX_VALUE);
+        
+
+    }
+    public boolean inorder(TreeNode t,long a,long b){
+        if(t==null)
+            return true;
+        if(t.val>=b || t.val<=a)
+            return false;
+        return inorder(t.left,a,t.val) && inorder(t.right,t.val,b);
+    }
+}
+
+BST Iterator
+
+class BSTIterator {
+    Stack<TreeNode> stack=new Stack<>();
+
+    public BSTIterator(TreeNode root) {
+        pushAll(root);
+    }
+    
+    public int next() {
+        TreeNode curr=stack.pop();
+        pushAll(curr.right);
+        return curr.val;
+    }
+    
+    public boolean hasNext() {
+        return !stack.isEmpty();
+        
+    }
+    public void pushAll(TreeNode t){
+        while(t!=null){
+            stack.push(t);
+            t=t.left;
+        }
+    }
+}
+
+Kth smallest element in BST
+
+    int i=0;
+    int x=0;
+    public int kthSmallest(TreeNode root, int k) {
+        small(root,k);
+        return x;
+    }
+    public void small(TreeNode root,int k){
+        if(root==null)
+            return;
+        small(root.left,k);
+        i++;
+        if(i==k){
+            x=root.val;
+        }
+        small(root.right,k);
+    }
+}
+
+convert sorted array to bst
+
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return tree(nums,0,nums.length-1);
+    }
+    public TreeNode tree(int[] nums,int s,int e){
+        if(s>e){
+            return null;
+        }
+        int mid=(s+e)/2;
+        TreeNode root=new TreeNode(nums[mid]);
+        root.left=tree(nums,s,mid-1);
+        root.right=tree(nums,mid+1,e);
+        return root;
+    }
+}
