@@ -1,0 +1,64 @@
+Balanced binary tree
+
+class Solution {
+    boolean x=true;
+    public boolean isBalanced(TreeNode root) {
+        balance(root);
+        return x;
+        
+    }
+    public int balance(TreeNode root){
+        if(root==null)
+            return 0;
+        int a=balance(root.left);
+        int b=balance(root.right);
+        if((Math.abs(a-b))>1)
+            x=false;
+        return Math.max(a,b)+1;
+    }
+}
+
+
+Invert binary tree
+
+
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        TreeNode curr=root;
+        invert(curr);
+        return root;
+        
+    }
+    public void invert(TreeNode t){
+        if(t==null)
+            return;
+        TreeNode temp=t.left;
+        t.left=t.right;
+        t.right=temp;
+        invert(t.left);
+        invert(t.right);
+    }
+}
+
+
+Path sum
+
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        int sum=0;
+        return Sum(root,targetSum,sum);
+    }
+    public boolean Sum(TreeNode root, int target,int sum) {
+        if(root==null)
+            return false;
+        if(root.left==null && root.right==null){
+            sum+=root.val;
+            if(sum==target)
+                return true;
+        }
+        return Sum(root.left,target,sum+root.val) || Sum(root.right,target,sum+root.val);
+    }
+            
+}
+
+
